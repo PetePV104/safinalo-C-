@@ -1,0 +1,2 @@
+﻿1|Paata|paata@library.ge|BCryptHash|123456|False
+2|Paata2|paata2@library.ge|BCryptHash|654321|False
