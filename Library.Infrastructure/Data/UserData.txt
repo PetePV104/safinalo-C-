@@ -1,2 +1,2 @@
-﻿1|Paata|paata@library.ge|BCryptHash|123456|False
-2|Paata2|paata2@library.ge|BCryptHash|654321|False
+﻿
+1|paata|vakes96221@chuwel.com|$2a$11$Ic5c26sd.sFU6UWou3oYo.LJc7Xs9z7Q5c7Q/uYnIoWlgAj4qIbn2|644802|False|User

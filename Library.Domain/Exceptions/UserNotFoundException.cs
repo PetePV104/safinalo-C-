@@ -1,13 +1,14 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Text;
 
 namespace Library.Domain.Exceptions
 {
     internal class UserNotFoundException : Exception
     {
         public string Username { get; }
-
         public UserNotFoundException(string username)
-            : base("User named '" + username + "' not found.")
+            : base($"user named '{username}' not found")
         {
             Username = username;
         }

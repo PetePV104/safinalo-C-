@@ -1,45 +1,48 @@
 ﻿using Library.Domain.Models;
 using Library.Domain.Interfaces;
+using System.Security.Cryptography;
+
 
 namespace Library.Aplication.Services
 {
     public class UserService
     {
-        private readonly IUserRepository _userRepository;
 
-        public UserService(IUserRepository userRepository)
+        private readonly IUserRepository _userRepository;
+        private readonly IEmailService _emailService;
+
+        public UserService(IUserRepository userRepository, IEmailService emailService)
         {
             _userRepository = userRepository;
+            _emailService = emailService;
         }
 
         public void RegisterUser(string name, string email, string password)
         {
-            List<User> users = _userRepository.GetAllUsers();
+            var users = _userRepository.GetAllUsers();
 
-            int newId = 1;
+            var nextId = users.Count == 0 ? 1 : users.Max(user => user.Id) + 1;
+            var verificationCode = RandomNumberGenerator.GetInt32(100000, 1000000).ToString();
 
-            foreach (User user in users)
+            var user = new User
             {
-                if (user.Id >= newId)
-                {
-                    newId = user.Id + 1;
-                }
-            }
+                Id = nextId,
+                Name = name,
+                Email = email,
+                Password = BCrypt.Net.BCrypt.HashPassword(password),
+                IsVerified = false,
+                VerificationCode = verificationCode,
 
-            User newUser = new User();
+            };
+            _userRepository.SaveUser(user);
 
-            newUser.Id = newId;
-            newUser.Name = name;
-            newUser.Email = email;
-            newUser.Password = BCrypt.Net.BCrypt.HashPassword(password);
-            newUser.IsVerified = false;
 
-            _userRepository.SaveUser(newUser);
+            _emailService.SendEmail(email, "Verification Code", $"Your verification code is: {verificationCode}");
         }
 
         public void LoginUser(string email, string password)
         {
-            User? user = _userRepository.GetUserByEmail(email);
+            var user = _userRepository.GetUserByEmail(email);
 
             if (user != null && BCrypt.Net.BCrypt.Verify(password, user.Password))
             {
@@ -48,6 +51,21 @@ namespace Library.Aplication.Services
             else
             {
                 Console.WriteLine("Invalid email or password.");
+            }
+        }
+
+        public void VerifyUser(string email, string verificationCode)
+        {
+            var user = _userRepository.GetUserByEmail(email);
+            if (user != null && user.VerificationCode == verificationCode)
+            {
+                user.IsVerified = true;
+                _userRepository.SaveUser(user);
+                Console.WriteLine("User verified successfully!");
+            }
+            else
+            {
+                Console.WriteLine("Invalid email or verification code.");
             }
         }
     }

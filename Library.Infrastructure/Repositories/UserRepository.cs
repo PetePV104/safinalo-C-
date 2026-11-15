@@ -1,71 +1,156 @@
-﻿using Library.Domain.Models;
+using Library.Domain.Models;
+using Library.Domain.Exceptions;
+using System;
+using System.Collections.Generic;
+using System.Text;
 using Library.Domain.Interfaces;
 using System.IO;
 
 namespace Library.Infrastructure.Repositories
-{
+{    
     public class UserRepository : IUserRepository
     {
-        private readonly string _path = Path.Combine(
-            Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
-            "Library",
-            "Data",
-            "UserData.txt"
-        );
+        private readonly string _path;
+
+        public UserRepository(string dataFolderPath)
+        {
+            if (string.IsNullOrWhiteSpace(dataFolderPath))
+                throw new ArgumentException("Data folder path cannot be null or empty.", nameof(dataFolderPath));
+
+            // Create directory if it doesn't exist
+            if (!Directory.Exists(dataFolderPath))
+                Directory.CreateDirectory(dataFolderPath);
+
+            _path = Path.Combine(dataFolderPath, "UserData.txt");
+
+            // Create file if it doesn't exist
+            if (!File.Exists(_path))
+                File.Create(_path).Dispose();
+        }
 
         public void SaveUser(User user)
         {
-            string directory = Path.GetDirectoryName(_path);
-            if (!string.IsNullOrEmpty(directory))
+            if (user == null)
+                throw new ArgumentNullException(nameof(user));
+
+            try
             {
-                Directory.CreateDirectory(directory);
+                File.AppendAllLines(_path, new List<string> { user.ToString() });
             }
-            File.AppendAllText(_path, user.ToString() + Environment.NewLine);
+            catch (Exception ex)
+            {
+                throw new InvalidOperationException($"Failed to save user to {_path}", ex);
+            }
+        }
+
+        public void SaveUsers(List<string> users)
+        {
+            if (users == null)
+                throw new ArgumentNullException(nameof(users));
+
+            try
+            {
+                File.AppendAllLines(_path, users);
+            }
+            catch (Exception ex)
+            {
+                throw new InvalidOperationException($"Failed to save users to {_path}", ex);
+            }
+        }
+
+        public void DeleteAllUsers()
+        {
+            try
+            {
+                File.WriteAllText(_path, "");
+            }
+            catch (Exception ex)
+            {
+                throw new InvalidOperationException($"Failed to delete users from {_path}", ex);
+            }
         }
 
         public List<User> GetAllUsers()
         {
-            List<User> users = new List<User>();
+            var userList = new List<User>();
 
-            if (!File.Exists(_path))
+            try
             {
-                return users;
-            }
+                if (!File.Exists(_path))
+                    return userList;
 
-            string[] lines = File.ReadAllLines(_path);
+                var userlines = File.ReadAllLines(_path);
 
-            foreach (string line in lines)
-            {
-                string[] parts = line.Split('|');
+                if (userlines.Length == 0)
+                    return userList;
 
-                if (parts.Length == 6)
+                foreach (var item in userlines)
                 {
-                    User user = new User();
+                    if (string.IsNullOrWhiteSpace(item))
+                        continue;
 
+                    var parts = item.Split('|');
+                    if (parts.Length < 7)
+                        continue;
+
+                    User user = new User();
                     user.Id = int.Parse(parts[0]);
                     user.Name = parts[1];
                     user.Email = parts[2];
                     user.Password = parts[3];
-                    user.VerifiCationCode = parts[4];
+                    user.VerificationCode = parts[4];
                     user.IsVerified = bool.Parse(parts[5]);
-
-                    users.Add(user);
+                    user.Role = parts[6];
+                    userList.Add(user);
                 }
             }
+            catch (Exception ex)
+            {
+                throw new InvalidOperationException($"Failed to read users from {_path}", ex);
+            }
 
-            return users;
+            return userList;
         }
 
         public User? GetUserByEmail(string email)
         {
-            List<User> users = GetAllUsers();
+            if (string.IsNullOrWhiteSpace(email))
+                throw new ArgumentException("Email cannot be null or empty.", nameof(email));
 
-            foreach (User user in users)
+            try
             {
-                if (user.Email.ToLower() == email.ToLower())
+                if (!File.Exists(_path))
+                    return null;
+
+                var userLines = File.ReadAllLines(_path);
+
+                foreach (var item in userLines)
                 {
-                    return user;
+                    if (string.IsNullOrWhiteSpace(item))
+                        continue;
+
+                    var parts = item.Split('|');
+                    if (parts.Length < 7)
+                        continue;
+
+                    if (parts[2] == email)
+                    {
+                        User user = new User();
+                        user.Id = int.Parse(parts[0]);
+                        user.Name = parts[1];
+                        user.Email = parts[2];
+                        user.Password = parts[3];
+                        user.VerificationCode = parts[4];
+                        user.IsVerified = bool.Parse(parts[5]);
+                        user.Role = parts[6];
+
+                        return user;
+                    }
                 }
+            }
+            catch (Exception ex)
+            {
+                throw new InvalidOperationException($"Failed to read users from {_path}", ex);
             }
 
             return null;

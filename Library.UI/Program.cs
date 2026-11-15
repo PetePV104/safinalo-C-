@@ -1,49 +1,30 @@
 ﻿using Library.Aplication.Services;
 using Library.Infrastructure.Repositories;
+using Microsoft.Extensions.Configuration;
+using MenuView = Library.UI.Menu.Menu;
 
 namespace Library.UI
 {
-    internal class Program
+    internal static class Program
     {
-        static void Main(string[] args)
+        private static void Main()
         {
-            UserRepository repository = new UserRepository();
-            UserService service = new UserService(repository);
+            var configuration = new ConfigurationBuilder()
+                .SetBasePath(Directory.GetCurrentDirectory())
+                .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
+                .AddEnvironmentVariables()
+                .Build();
 
-            Console.WriteLine("1. Register");
-            Console.WriteLine("2. Login");
+            // Get the data folder path (relative to the executable)
+            var dataFolderPath = Path.Combine(AppContext.BaseDirectory, "Data");
 
-            string choice = Console.ReadLine() ?? "";
+            var userRepository = new UserRepository(dataFolderPath);
+            var emailService = new EmailService(configuration);
+            var userService = new UserService(userRepository, emailService);
 
-            if (choice == "1")
-            {
-                Console.WriteLine("Enter name:");
-                string name = Console.ReadLine() ?? "";
-
-                Console.WriteLine("Enter email:");
-                string email = Console.ReadLine() ?? "";
-
-                Console.WriteLine("Enter password:");
-                string password = Console.ReadLine() ?? "";
-
-                service.RegisterUser(name, email, password);
-
-                Console.WriteLine("User registered successfully.");
-            }
-            else if (choice == "2")
-            {
-                Console.WriteLine("Enter email:");
-                string email = Console.ReadLine() ?? "";
-
-                Console.WriteLine("Enter password:");
-                string password = Console.ReadLine() ?? "";
-
-                service.LoginUser(email, password);
-            }
-            else
-            {
-                Console.WriteLine("Invalid choice.");
-            }
+            var menu = new MenuView(userService);
+            menu.ShowMenu();
         }
+
     }
 }

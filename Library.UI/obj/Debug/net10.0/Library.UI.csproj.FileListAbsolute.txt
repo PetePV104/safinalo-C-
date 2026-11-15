@@ -3,10 +3,8 @@ C:\Users\User\OneDrive\Desktop\Library.app\Library.UI\bin\Debug\net10.0\Library.
 C:\Users\User\OneDrive\Desktop\Library.app\Library.UI\bin\Debug\net10.0\Library.UI.runtimeconfig.json
 C:\Users\User\OneDrive\Desktop\Library.app\Library.UI\bin\Debug\net10.0\Library.UI.dll
 C:\Users\User\OneDrive\Desktop\Library.app\Library.UI\bin\Debug\net10.0\Library.UI.pdb
-C:\Users\User\OneDrive\Desktop\Library.app\Library.UI\bin\Debug\net10.0\Library.Aplication.dll
 C:\Users\User\OneDrive\Desktop\Library.app\Library.UI\bin\Debug\net10.0\Library.Domain.dll
 C:\Users\User\OneDrive\Desktop\Library.app\Library.UI\bin\Debug\net10.0\Library.Infrastructure.dll
-C:\Users\User\OneDrive\Desktop\Library.app\Library.UI\bin\Debug\net10.0\Library.Aplication.pdb
 C:\Users\User\OneDrive\Desktop\Library.app\Library.UI\bin\Debug\net10.0\Library.Domain.pdb
 C:\Users\User\OneDrive\Desktop\Library.app\Library.UI\bin\Debug\net10.0\Library.Infrastructure.pdb
 C:\Users\User\OneDrive\Desktop\Library.app\Library.UI\obj\Debug\net10.0\Library.UI.csproj.AssemblyReference.cache
@@ -22,14 +20,22 @@ C:\Users\User\OneDrive\Desktop\Library.app\Library.UI\obj\Debug\net10.0\Library.
 C:\Users\User\OneDrive\Desktop\Library.app\Library.UI\obj\Debug\net10.0\ref\Library.UI.dll
 C:\Users\User\OneDrive\Desktop\Library.app\Library.UI\obj\Debug\net10.0\Library.UI.sourcelink.json
 C:\Users\User\OneDrive\Desktop\Library.app\Library.UI\bin\Debug\net10.0\Data\UserData.txt
-C:\Users\Windows 11 Pro\source\repos\Library.App\Library.UI\obj\Debug\net10.0\Library.UI.csproj.AssemblyReference.cache
-C:\Users\Windows 11 Pro\source\repos\Library.App\Library.UI\obj\Debug\net10.0\Library.UI.GeneratedMSBuildEditorConfig.editorconfig
-C:\Users\Windows 11 Pro\source\repos\Library.App\Library.UI\obj\Debug\net10.0\Library.UI.AssemblyInfoInputs.cache
-C:\Users\Windows 11 Pro\source\repos\Library.App\Library.UI\obj\Debug\net10.0\Library.UI.AssemblyInfo.cs
-C:\Users\Windows 11 Pro\source\repos\Library.App\Library.UI\obj\Debug\net10.0\Library.UI.csproj.CoreCompileInputs.cache
-C:\Users\Windows 11 Pro\source\repos\Library.App\Library.UI\obj\Debug\net10.0\Library.UI.dll
-C:\Users\Windows 11 Pro\source\repos\Library.App\Library.UI\obj\Debug\net10.0\refint\Library.UI.dll
-C:\Users\Windows 11 Pro\source\repos\Library.App\Library.UI\obj\Debug\net10.0\Library.UI.pdb
+C:\Users\User\OneDrive\Desktop\Library.app\Library.UI\bin\Debug\net10.0\BCrypt-Net-Next.dll
+C:\Users\User\OneDrive\Desktop\Library.app\Library.UI\bin\Debug\net10.0\Microsoft.Extensions.Configuration.dll
+C:\Users\User\OneDrive\Desktop\Library.app\Library.UI\bin\Debug\net10.0\Microsoft.Extensions.Configuration.Abstractions.dll
+C:\Users\User\OneDrive\Desktop\Library.app\Library.UI\bin\Debug\net10.0\Microsoft.Extensions.Primitives.dll
+C:\Users\User\OneDrive\Desktop\Library.app\Library.UI\bin\Debug\net10.0\Microsoft.Extensions.Configuration.FileExtensions.dll
+C:\Users\User\OneDrive\Desktop\Library.app\Library.UI\bin\Debug\net10.0\Microsoft.Extensions.Configuration.Json.dll
+C:\Users\User\OneDrive\Desktop\Library.app\Library.UI\bin\Debug\net10.0\Microsoft.Extensions.FileProviders.Abstractions.dll
+C:\Users\User\OneDrive\Desktop\Library.app\Library.UI\bin\Debug\net10.0\Microsoft.Extensions.FileProviders.Physical.dll
+C:\Users\User\OneDrive\Desktop\Library.app\Library.UI\bin\Debug\net10.0\Microsoft.Extensions.FileSystemGlobbing.dll
+C:\Users\User\OneDrive\Desktop\Library.app\Library.UI\bin\Debug\net10.0\appsettings.json
+C:\Users\User\OneDrive\Desktop\Library.app\Library.UI\bin\Debug\net10.0\Spectre.Console.dll
+C:\Users\User\OneDrive\Desktop\Library.app\Library.UI\bin\Debug\net10.0\Spectre.Console.Ansi.dll
+C:\Users\User\OneDrive\Desktop\Library.app\Library.UI\bin\Debug\net10.0\Library.Application.dll
+C:\Users\User\OneDrive\Desktop\Library.app\Library.UI\bin\Debug\net10.0\Library.Application.pdb
+C:\Users\User\OneDrive\Desktop\Library.app\Library.UI\bin\Debug\net10.0\Microsoft.Extensions.Configuration.EnvironmentVariables.dll
+C:\Users\Windows 11 Pro\source\repos\Library.App\Library.UI\bin\Debug\net10.0\appsettings.json
 C:\Users\Windows 11 Pro\source\repos\Library.App\Library.UI\bin\Debug\net10.0\Data\UserData.txt
 C:\Users\Windows 11 Pro\source\repos\Library.App\Library.UI\bin\Debug\net10.0\Library.UI.exe
 C:\Users\Windows 11 Pro\source\repos\Library.App\Library.UI\bin\Debug\net10.0\Library.UI.deps.json
@@ -37,12 +43,31 @@ C:\Users\Windows 11 Pro\source\repos\Library.App\Library.UI\bin\Debug\net10.0\Li
 C:\Users\Windows 11 Pro\source\repos\Library.App\Library.UI\bin\Debug\net10.0\Library.UI.dll
 C:\Users\Windows 11 Pro\source\repos\Library.App\Library.UI\bin\Debug\net10.0\Library.UI.pdb
 C:\Users\Windows 11 Pro\source\repos\Library.App\Library.UI\bin\Debug\net10.0\BCrypt-Net-Next.dll
-C:\Users\Windows 11 Pro\source\repos\Library.App\Library.UI\bin\Debug\net10.0\Library.Aplication.dll
+C:\Users\Windows 11 Pro\source\repos\Library.App\Library.UI\bin\Debug\net10.0\Microsoft.Extensions.Configuration.dll
+C:\Users\Windows 11 Pro\source\repos\Library.App\Library.UI\bin\Debug\net10.0\Microsoft.Extensions.Configuration.Abstractions.dll
+C:\Users\Windows 11 Pro\source\repos\Library.App\Library.UI\bin\Debug\net10.0\Microsoft.Extensions.Configuration.EnvironmentVariables.dll
+C:\Users\Windows 11 Pro\source\repos\Library.App\Library.UI\bin\Debug\net10.0\Microsoft.Extensions.Configuration.FileExtensions.dll
+C:\Users\Windows 11 Pro\source\repos\Library.App\Library.UI\bin\Debug\net10.0\Microsoft.Extensions.Configuration.Json.dll
+C:\Users\Windows 11 Pro\source\repos\Library.App\Library.UI\bin\Debug\net10.0\Microsoft.Extensions.FileProviders.Abstractions.dll
+C:\Users\Windows 11 Pro\source\repos\Library.App\Library.UI\bin\Debug\net10.0\Microsoft.Extensions.FileProviders.Physical.dll
+C:\Users\Windows 11 Pro\source\repos\Library.App\Library.UI\bin\Debug\net10.0\Microsoft.Extensions.FileSystemGlobbing.dll
+C:\Users\Windows 11 Pro\source\repos\Library.App\Library.UI\bin\Debug\net10.0\Microsoft.Extensions.Primitives.dll
+C:\Users\Windows 11 Pro\source\repos\Library.App\Library.UI\bin\Debug\net10.0\Spectre.Console.dll
+C:\Users\Windows 11 Pro\source\repos\Library.App\Library.UI\bin\Debug\net10.0\Spectre.Console.Ansi.dll
+C:\Users\Windows 11 Pro\source\repos\Library.App\Library.UI\bin\Debug\net10.0\Library.Application.dll
 C:\Users\Windows 11 Pro\source\repos\Library.App\Library.UI\bin\Debug\net10.0\Library.Domain.dll
 C:\Users\Windows 11 Pro\source\repos\Library.App\Library.UI\bin\Debug\net10.0\Library.Infrastructure.dll
-C:\Users\Windows 11 Pro\source\repos\Library.App\Library.UI\bin\Debug\net10.0\Library.Aplication.pdb
+C:\Users\Windows 11 Pro\source\repos\Library.App\Library.UI\bin\Debug\net10.0\Library.Application.pdb
 C:\Users\Windows 11 Pro\source\repos\Library.App\Library.UI\bin\Debug\net10.0\Library.Domain.pdb
 C:\Users\Windows 11 Pro\source\repos\Library.App\Library.UI\bin\Debug\net10.0\Library.Infrastructure.pdb
+C:\Users\Windows 11 Pro\source\repos\Library.App\Library.UI\obj\Debug\net10.0\Library.UI.csproj.AssemblyReference.cache
+C:\Users\Windows 11 Pro\source\repos\Library.App\Library.UI\obj\Debug\net10.0\Library.UI.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Windows 11 Pro\source\repos\Library.App\Library.UI\obj\Debug\net10.0\Library.UI.AssemblyInfoInputs.cache
+C:\Users\Windows 11 Pro\source\repos\Library.App\Library.UI\obj\Debug\net10.0\Library.UI.AssemblyInfo.cs
+C:\Users\Windows 11 Pro\source\repos\Library.App\Library.UI\obj\Debug\net10.0\Library.UI.csproj.CoreCompileInputs.cache
 C:\Users\Windows 11 Pro\source\repos\Library.App\Library.UI\obj\Debug\net10.0\Library.UI.csproj.Up2Date
+C:\Users\Windows 11 Pro\source\repos\Library.App\Library.UI\obj\Debug\net10.0\Library.UI.dll
+C:\Users\Windows 11 Pro\source\repos\Library.App\Library.UI\obj\Debug\net10.0\refint\Library.UI.dll
+C:\Users\Windows 11 Pro\source\repos\Library.App\Library.UI\obj\Debug\net10.0\Library.UI.pdb
 C:\Users\Windows 11 Pro\source\repos\Library.App\Library.UI\obj\Debug\net10.0\Library.UI.genruntimeconfig.cache
 C:\Users\Windows 11 Pro\source\repos\Library.App\Library.UI\obj\Debug\net10.0\ref\Library.UI.dll
