@@ -1,8 +1,9 @@
-using Library.Domain.Models;
+﻿using Library.Domain.Models;
 using Library.Domain.Exceptions;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Security.Cryptography.X509Certificates;
 using Library.Domain.Interfaces;
 using System.IO;
 
@@ -12,147 +13,98 @@ namespace Library.Infrastructure.Repositories
     {
         private readonly string _path;
 
-        public UserRepository(string dataFolderPath)
+        public UserRepository()
         {
-            if (string.IsNullOrWhiteSpace(dataFolderPath))
-                throw new ArgumentException("Data folder path cannot be null or empty.", nameof(dataFolderPath));
-
-            // Create directory if it doesn't exist
+            var dataFolderPath = Path.Combine(AppContext.BaseDirectory, "Data");
             if (!Directory.Exists(dataFolderPath))
                 Directory.CreateDirectory(dataFolderPath);
-
             _path = Path.Combine(dataFolderPath, "UserData.txt");
-
-            // Create file if it doesn't exist
             if (!File.Exists(_path))
                 File.Create(_path).Dispose();
         }
 
         public void SaveUser(User user)
         {
-            if (user == null)
-                throw new ArgumentNullException(nameof(user));
+            Directory.CreateDirectory(Path.GetDirectoryName(_path)!);
+            var users = File.Exists(_path)
+                ? File.ReadAllLines(_path).ToList()
+                : new List<string>();
+            var existingIndex = users.FindIndex(line =>
+            {
+                var parts = line.Split('|');
+                return parts.Length >= 7 && int.TryParse(parts[0], out var id) && id == user.Id;
+            });
 
-            try
+            if (existingIndex >= 0)
             {
-                File.AppendAllLines(_path, new List<string> { user.ToString() });
+                users[existingIndex] = user.ToString();
+                File.WriteAllLines(_path, users);
+                return;
             }
-            catch (Exception ex)
-            {
-                throw new InvalidOperationException($"Failed to save user to {_path}", ex);
-            }
+
+            File.AppendAllLines(_path, new[] { user.ToString() });
         }
-
         public void SaveUsers(List<string> users)
         {
-            if (users == null)
-                throw new ArgumentNullException(nameof(users));
-
-            try
-            {
-                File.AppendAllLines(_path, users);
-            }
-            catch (Exception ex)
-            {
-                throw new InvalidOperationException($"Failed to save users to {_path}", ex);
-            }
+            Directory.CreateDirectory(Path.GetDirectoryName(_path)!);
+            File.WriteAllLines(_path, users);
         }
-
         public void DeleteAllUsers()
         {
-            try
-            {
-                File.WriteAllText(_path, "");
-            }
-            catch (Exception ex)
-            {
-                throw new InvalidOperationException($"Failed to delete users from {_path}", ex);
-            }
-        }
-
+            File.WriteAllText(_path, ""); 
+		}
         public List<User> GetAllUsers()
         {
-            var userList = new List<User>();
+            if (!File.Exists(_path))
+                return new List<User>();
 
-            try
+            var userlines = File.ReadAllLines(_path);
+            List<User> userList = new List<User>();
+
+            foreach (var item in userlines)
             {
-                if (!File.Exists(_path))
-                    return userList;
-
-                var userlines = File.ReadAllLines(_path);
-
-                if (userlines.Length == 0)
-                    return userList;
-
-                foreach (var item in userlines)
-                {
-                    if (string.IsNullOrWhiteSpace(item))
-                        continue;
-
-                    var parts = item.Split('|');
-                    if (parts.Length < 7)
-                        continue;
-
-                    User user = new User();
-                    user.Id = int.Parse(parts[0]);
-                    user.Name = parts[1];
-                    user.Email = parts[2];
-                    user.Password = parts[3];
-                    user.VerificationCode = parts[4];
-                    user.IsVerified = bool.Parse(parts[5]);
-                    user.Role = parts[6];
-                    userList.Add(user);
-                }
+             var parts = item.Split('|');
+                if (parts.Length < 7)
+                    continue;
+                User user = new User();
+                user.Id = int.Parse(parts[0]);
+                user.Name = parts[1];
+                user.Email = parts[2];
+                user.Password = parts[3];
+                user.VerifiCationCode = parts[4];
+                user.IsVerified = bool.Parse(parts[5]);
+                user.Role = parts[6];
+                userList.Add(user);
             }
-            catch (Exception ex)
-            {
-                throw new InvalidOperationException($"Failed to read users from {_path}", ex);
-            }
-
             return userList;
         }
-
         public User? GetUserByEmail(string email)
         {
-            if (string.IsNullOrWhiteSpace(email))
-                throw new ArgumentException("Email cannot be null or empty.", nameof(email));
+            if (!File.Exists(_path))
+                return null;
 
-            try
+            var userLines = File.ReadAllLines(_path).ToList();
+
+            foreach (var item in userLines)
             {
-                if (!File.Exists(_path))
-                    return null;
+                if (string.IsNullOrWhiteSpace(item))
+                    continue;
 
-                var userLines = File.ReadAllLines(_path);
+                var parts = item.Split("|");
+                if (parts.Length < 7 || parts[2] != email)
+                    continue;
 
-                foreach (var item in userLines)
-                {
-                    if (string.IsNullOrWhiteSpace(item))
-                        continue;
+                User user = new User();
+                user.Id = int.Parse(parts[0]);
+                user.Name = parts[1];
+                user.Email = parts[2];
+                user.Password = parts[3];
+                user.VerifiCationCode = parts[4];
+                user.IsVerified = bool.Parse(parts[5]);
+                user.Role = parts[6];
 
-                    var parts = item.Split('|');
-                    if (parts.Length < 7)
-                        continue;
-
-                    if (parts[2] == email)
-                    {
-                        User user = new User();
-                        user.Id = int.Parse(parts[0]);
-                        user.Name = parts[1];
-                        user.Email = parts[2];
-                        user.Password = parts[3];
-                        user.VerificationCode = parts[4];
-                        user.IsVerified = bool.Parse(parts[5]);
-                        user.Role = parts[6];
-
-                        return user;
-                    }
-                }
+                return user;
             }
-            catch (Exception ex)
-            {
-                throw new InvalidOperationException($"Failed to read users from {_path}", ex);
-            }
-
             return null;
         }
     }
