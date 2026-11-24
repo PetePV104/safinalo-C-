@@ -43,7 +43,32 @@ public sealed class LibraryService
             ?? throw new InvalidOperationException("Book was not found.");
         if (book.BorrowedByEmail is not null)
             throw new InvalidOperationException("Book is already borrowed.");
-        book.BorrowedByEmail = email;
+        if (book.BorrowRequestByEmail is not null)
+            throw new InvalidOperationException("Book already has a pending borrow request.");
+        book.BorrowRequestByEmail = email;
+        _bookRepository.SaveBook(book);
+    }
+
+    public void ApproveBorrowRequest(int id)
+    {
+        var book = GetBooks().FirstOrDefault(item => item.Id == id)
+            ?? throw new InvalidOperationException("Book was not found.");
+        if (book.BorrowRequestByEmail is null)
+            throw new InvalidOperationException("Book has no pending borrow request.");
+
+        book.BorrowedByEmail = book.BorrowRequestByEmail;
+        book.BorrowRequestByEmail = null;
+        _bookRepository.SaveBook(book);
+    }
+
+    public void DeclineBorrowRequest(int id)
+    {
+        var book = GetBooks().FirstOrDefault(item => item.Id == id)
+            ?? throw new InvalidOperationException("Book was not found.");
+        if (book.BorrowRequestByEmail is null)
+            throw new InvalidOperationException("Book has no pending borrow request.");
+
+        book.BorrowRequestByEmail = null;
         _bookRepository.SaveBook(book);
     }
 

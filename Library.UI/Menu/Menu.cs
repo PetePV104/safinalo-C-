@@ -1,4 +1,4 @@
-using Library.Aplication.Services;
+﻿using Library.Aplication.Services;
 using Spectre.Console;
 
 namespace Library.UI.Menu
@@ -23,14 +23,14 @@ namespace Library.UI.Menu
             while (true)
             {
                 AnsiConsole.Clear();
-                AnsiConsole.Write(new FigletText("Library APP").Color(Color.Red));
-                AnsiConsole.Write(new Rule("Account menu").RuleStyle("grey"));
+                AnsiConsole.Write(new FigletText("Library").Color(Color.Red));
+                AnsiConsole.Write(new Rule("[red]Account menu[/]").RuleStyle("red"));
 
                 var choice = AnsiConsole.Prompt(
                     new SelectionPrompt<string>()
-                        .Title("What would you like to do?")
+                        .Title("[red]What would you like to do?[/]")
                         .PageSize(5)
-                        .HighlightStyle("red")
+                        .HighlightStyle(new Style(Color.White, Color.Red))
                         .AddChoices(RegisterOption, LoginOption, ExitOption));
 
                 try
@@ -68,8 +68,8 @@ namespace Library.UI.Menu
             var role = AnsiConsole.Prompt(
                 new SelectionPrompt<string>()
                     .Title("Register as:")
-                    .HighlightStyle("red")
-                    .AddChoices("User", "Admin"));
+                    .HighlightStyle(new Style(Color.White, Color.Red))
+                    .AddChoices("User", "Librarian", "Admin"));
             if(role == "Admin")
             {
                 var secretWord = AnsiConsole.Ask<string>("Enter the secret word for admin registration:");
@@ -108,17 +108,12 @@ namespace Library.UI.Menu
                 return;
             }
 
-            if (!user.IsVerified)
+            _service.SendLoginVerificationCode(email);
+            var code = AnsiConsole.Ask<string>("Enter the verification code sent to your email:");
+            if (!_service.VerifyLoginCode(email, code))
             {
-                AnsiConsole.MarkupLine("[yellow]Your account is not verified yet.[/]");
-                var code = AnsiConsole.Ask<string>("Enter the verification code sent to your email:");
-                if (!_service.VerifyUser(email, code))
-                {
-                    AnsiConsole.MarkupLine("[red]Invalid verification code.[/]");
-                    return;
-                }
-
-                AnsiConsole.MarkupLine("[green]Email verified successfully.[/]");
+                AnsiConsole.MarkupLine("[red]Invalid verification code.[/]");
+                return;
             }
 
             AnsiConsole.MarkupLine($"[green]Login successful. Welcome, {Markup.Escape(user.Name)}![/]");
@@ -129,6 +124,8 @@ namespace Library.UI.Menu
         {
             if (string.Equals(user.Role, "Admin", StringComparison.OrdinalIgnoreCase))
                 new AdminMenu(user, _library, _service).ShowMenu();
+            else if (string.Equals(user.Role, "Librarian", StringComparison.OrdinalIgnoreCase))
+                new LibrarianMenu(user, _library, _service).ShowMenu();
             else
                 new UserMenu(user, _library).ShowMenu();
         }

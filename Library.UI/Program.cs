@@ -10,7 +10,7 @@ namespace Library.UI
         private static void Main()
         {
             var configuration = new ConfigurationBuilder()
-
+             
                 .SetBasePath(AppContext.BaseDirectory)
                 .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
                 .AddEnvironmentVariables()
@@ -18,7 +18,6 @@ namespace Library.UI
 
             var userRepository = new UserRepository();
             var bookRepository = new BookRepository();
-            var borrowRecordRepository = new BorrowRecordRepository();
             var emailService = new EmailService(configuration);
             var userService = new UserService(userRepository, emailService);
             var libraryService = new LibraryService(userRepository, bookRepository);

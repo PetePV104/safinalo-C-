@@ -1,2 +1,12 @@
-1|The Hobbit|J.R.R. Tolkien|tapako5052@gmail.com
-2|Clean Code|Robert C. Martin|robert.martin@gmail.com
+1|Educated|Tara Westover||
+2|Becoming|Michelle Obama||
+3|The Midnight Library|Matt Haig||
+4|It Ends with Us|Colleen Hoover||
+5|Tomorrow, and Tomorrow, and Tomorrow|Gabrielle Zevin||
+6|Remarkably Bright|Catherine Birkwood||
+7|The Seven Husbands of Evelyn Hugo|Taylor Jenkins Reid||
+8|Fourth Wing|Rebecca Yarros||
+9|Daisy Jones & The Six|Taylor Jenkins Reid||
+10|The Silent Patient|Alex Michaelides||
+11|Lessons in Chemistry|Bonnie Garmus||
+12|Circe|Madeline Miller||

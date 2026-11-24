@@ -1,6 +1,0 @@
-
-1|paata|bijiwij544@bonuscable.com|$2a$11$h.7O6Lc6FuLtG7A3dCMqkeKeVXaKcZQrRo5kq9ed6d25A4e4.j1hS|639212|False|User
-2|paata|bijiwij544@bonuscable.com|$2a$11$ZDew6tvZSm52bY2Grn42.OOmmI8q1knyS9uy5BAyDXZKUsFGSMcuO|950813|False|User
-3|პაატა|bijiwij544@bonuscable.com|$2a$11$smFovJuBS4h7wVlPO4a.0eE5SIB2Qu./4FrtveBZGZmDQan3EUP/G|235267|False|User
-4|paata|wasigo3008@bcough.com|$2a$11$qw.O0ulBINfvzH1AnCj8T.YpsoRANCpHywZUYuiQ6kmpdpMDI4ttS|430523|True|User
-5|paata2|jaximet384@forims.com|$2a$11$BBM61wNCT1E0j4MOgceCv.5nZA2mYj.vXpd2ffZ4wUlhbLNY1a8gS|235969|True|Admin

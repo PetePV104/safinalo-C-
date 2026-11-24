@@ -31,14 +31,14 @@ namespace Library.Aplication.Services
                 Email = email,
                 Password = BCrypt.Net.BCrypt.HashPassword(password),
                 IsVerified = false,
-                VerifiCationCode = verificationCode,
+                VerificationCode = verificationCode,
                 Role = role,
 
             };
             _userRepository.SaveUser(user);
 
 
-            _emailService.SendEmail(email, "ვერიფიკაციის კოდი", $"თქვენი ვერიფიკაციის კოდია: {verificationCode}");
+            _emailService.SendEmail(email, "Verification Code", $"Your verification code is: {verificationCode}");
         }
 
         public User? LoginUser(string email, string password)
@@ -53,10 +53,28 @@ namespace Library.Aplication.Services
             return null;
         }
 
+        public bool SendLoginVerificationCode(string email)
+        {
+            var user = _userRepository.GetUserByEmail(email);
+            if (user == null)
+            {
+                return false;
+            }
+
+            _emailService.SendEmail(email, "Login Code", $"Your login code is: {user.VerificationCode}");
+            return true;
+        }
+
+        public bool VerifyLoginCode(string email, string verificationCode)
+        {
+            var user = _userRepository.GetUserByEmail(email);
+            return user != null && user.VerificationCode == verificationCode;
+        }
+
         public bool VerifyUser(string email, string verificationCode)
         {
             var user = _userRepository.GetUserByEmail(email);
-            if (user == null || user.VerifiCationCode != verificationCode)
+            if (user == null || user.VerificationCode != verificationCode)
             {
                 return false;
             }

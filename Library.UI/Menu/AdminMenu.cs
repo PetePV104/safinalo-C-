@@ -1,4 +1,4 @@
-using Library.Aplication.Services;
+﻿using Library.Aplication.Services;
 using Library.Domain.Models;
 using Spectre.Console;
 
@@ -22,8 +22,7 @@ namespace Library.UI.Menu
             while (true)
             {
                 var choice = AnsiConsole.Prompt(new SelectionPrompt<string>()
-                    .Title($"[red]Admin menu - {Markup.Escape(_user.Name)}[/]")
-                    .HighlightStyle("red")
+                    .Title($"Admin menu - {Markup.Escape(_user.Name)}")
                     .AddChoices("List users", "Add user", "Remove user", "Add book", "Remove book", "List books and borrowers", "Back"));
 
                 switch (choice)
@@ -88,7 +87,10 @@ namespace Library.UI.Menu
         var table = new Table().Border(TableBorder.Rounded)
             .AddColumns("Id", "Title", "Author", "Borrowed by");
         foreach (var book in books)
-            table.AddRow(book.Id.ToString(), book.Title, book.Author, book.BorrowedByEmail ?? "Available");
+            table.AddRow(book.Id.ToString(), book.Title, book.Author,
+                book.BorrowedByEmail ?? (book.BorrowRequestByEmail is not null
+                    ? $"Pending: {book.BorrowRequestByEmail}"
+                    : "Available"));
         AnsiConsole.Write(table);
         }
     }

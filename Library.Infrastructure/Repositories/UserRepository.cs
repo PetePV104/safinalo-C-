@@ -11,21 +11,10 @@ namespace Library.Infrastructure.Repositories
 {    
     public class UserRepository : IUserRepository
     {
-        private readonly string _path;
-
-        public UserRepository()
-        {
-            var dataFolderPath = Path.Combine(AppContext.BaseDirectory, "Data");
-            if (!Directory.Exists(dataFolderPath))
-                Directory.CreateDirectory(dataFolderPath);
-            _path = Path.Combine(dataFolderPath, "UserData.txt");
-            if (!File.Exists(_path))
-                File.Create(_path).Dispose();
-        }
+        private readonly string _path = @"C:\Users\User\OneDrive\Desktop\Library.app\Library.Infrastructure\Data\UserData.txt";
 
         public void SaveUser(User user)
         {
-            Directory.CreateDirectory(Path.GetDirectoryName(_path)!);
             var users = File.Exists(_path)
                 ? File.ReadAllLines(_path).ToList()
                 : new List<string>();
@@ -46,7 +35,6 @@ namespace Library.Infrastructure.Repositories
         }
         public void SaveUsers(List<string> users)
         {
-            Directory.CreateDirectory(Path.GetDirectoryName(_path)!);
             File.WriteAllLines(_path, users);
         }
         public void DeleteAllUsers()
@@ -55,9 +43,6 @@ namespace Library.Infrastructure.Repositories
 		}
         public List<User> GetAllUsers()
         {
-            if (!File.Exists(_path))
-                return new List<User>();
-
             var userlines = File.ReadAllLines(_path);
             List<User> userList = new List<User>();
 
@@ -71,41 +56,43 @@ namespace Library.Infrastructure.Repositories
                 user.Name = parts[1];
                 user.Email = parts[2];
                 user.Password = parts[3];
-                user.VerifiCationCode = parts[4];
+                user.VerificationCode = parts[4];
                 user.IsVerified = bool.Parse(parts[5]);
                 user.Role = parts[6];
                 userList.Add(user);
             }
             return userList;
         }
+        
+
         public User? GetUserByEmail(string email)
         {
-            if (!File.Exists(_path))
-                return null;
-
             var userLines = File.ReadAllLines(_path).ToList();
 
             foreach (var item in userLines)
             {
-                if (string.IsNullOrWhiteSpace(item))
-                    continue;
-
                 var parts = item.Split("|");
-                if (parts.Length < 7 || parts[2] != email)
-                    continue;
+                if (parts[2] == email)
+                {
 
-                User user = new User();
-                user.Id = int.Parse(parts[0]);
-                user.Name = parts[1];
-                user.Email = parts[2];
-                user.Password = parts[3];
-                user.VerifiCationCode = parts[4];
-                user.IsVerified = bool.Parse(parts[5]);
-                user.Role = parts[6];
+                    User user = new User();
+                    user.Id = int.Parse(parts[0]);
+                    user.Name = parts[1];
+                    user.Email = parts[2];
+                    user.Password = parts[3];
+                    user.VerificationCode = parts[4];
+                    user.IsVerified = bool.Parse(parts[5]);
+                    user.Role = parts[6];
 
-                return user;
+                    return user;
+
+                }
             }
             return null;
+
+
+
+
         }
     }
 }

@@ -1,4 +1,4 @@
-using Library.Aplication.Services;
+﻿using Library.Aplication.Services;
 using Library.Domain.Models;
 using Spectre.Console;
 
@@ -20,8 +20,7 @@ namespace Library.UI.Menu
             while (true)
             {
                 var choice = AnsiConsole.Prompt(new SelectionPrompt<string>()
-                    .Title($"[red]User menu - {Markup.Escape(_user.Name)}[/]")
-                    .HighlightStyle("red")
+                    .Title($"User menu - {Markup.Escape(_user.Name)}")
                     .AddChoices("List books", "Borrow book", "Return book", "Change profile", "Back"));
 
                 switch (choice)
@@ -50,7 +49,7 @@ namespace Library.UI.Menu
         {
             var id = AnsiConsole.Ask<int>("Book id to borrow:");
             _library.BorrowBook(id, _user.Email);
-            AnsiConsole.MarkupLine("[green]Book borrowed.[/]");
+            AnsiConsole.MarkupLine("[green]Borrow request sent to a librarian.[/]");
         }
 
         private void ReturnBook()

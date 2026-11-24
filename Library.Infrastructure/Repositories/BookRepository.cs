@@ -5,17 +5,9 @@ namespace Library.Infrastructure.Repositories;
 
 public sealed class BookRepository : IBookRepository
 {
-    private readonly string _path;
-
-    public BookRepository()
-    {
-        var dataFolderPath = Path.Combine(AppContext.BaseDirectory, "Data");
-        if (!Directory.Exists(dataFolderPath))
-            Directory.CreateDirectory(dataFolderPath);
-        _path = Path.Combine(dataFolderPath, "Books.txt");
-        if (!File.Exists(_path))
-            File.Create(_path).Dispose();
-    }
+    private readonly string _path = Path.Combine(
+        @"C:\Users\User\OneDrive\Desktop\Library.app",
+        "Library.Infrastructure", "Data", "Books.txt");
 
     public List<Book> GetAllBooks()
     {
@@ -29,7 +21,10 @@ public sealed class BookRepository : IBookRepository
                 Id = int.Parse(parts[0]),
                 Title = parts[1],
                 Author = parts[2],
-                BorrowedByEmail = string.IsNullOrWhiteSpace(parts[3]) ? null : parts[3]
+                BorrowedByEmail = string.IsNullOrWhiteSpace(parts[3]) ? null : parts[3],
+                BorrowRequestByEmail = parts.Length >= 5 && !string.IsNullOrWhiteSpace(parts[4])
+                    ? parts[4]
+                    : null
             })
             .ToList();
     }
@@ -51,5 +46,5 @@ public sealed class BookRepository : IBookRepository
     }
 
     private static string ToLine(Book book) =>
-        $"{book.Id}|{book.Title}|{book.Author}|{book.BorrowedByEmail ?? string.Empty}";
+        $"{book.Id}|{book.Title}|{book.Author}|{book.BorrowedByEmail ?? string.Empty}|{book.BorrowRequestByEmail ?? string.Empty}";
 }
