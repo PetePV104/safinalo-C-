@@ -5,9 +5,7 @@ namespace Library.Infrastructure.Repositories;
 
 public sealed class BookRepository : IBookRepository
 {
-    private readonly string _path = Path.Combine(
-        @"C:\Users\User\OneDrive\Desktop\Library.app",
-        "Library.Infrastructure", "Data", "Books.txt");
+    private readonly string _path = Path.Combine(AppContext.BaseDirectory, "Data", "Books.txt");
 
     public List<Book> GetAllBooks()
     {

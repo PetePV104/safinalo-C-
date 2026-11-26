@@ -81,6 +81,17 @@ namespace Library.UI.Menu
                     role = "User"; 
                 }
             }
+            else if(role == "Librarian")
+            {
+                var secretWord = AnsiConsole.Ask<string>("Enter the secret word for librarian registration:");
+                var configSecretWord = System.Text.Json.JsonDocument.Parse(File.ReadAllText("appsettings.json"))
+                    .RootElement.GetProperty("SecretWordForLibrarian").GetString();
+                if (secretWord != configSecretWord)
+                {
+                    AnsiConsole.MarkupLine("[red]Invalid secret word for librarian registration.[/]");
+                    role = "User"; 
+                }
+            }
             _service.RegisterUser(name, email, password, role);
             AnsiConsole.MarkupLine("[green]Registration saved. A verification email was sent.[/]");
             if (Verify(email))

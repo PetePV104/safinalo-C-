@@ -1,0 +1,3 @@
+1|paata|celebik962@bonuscable.com|$2a$11$6aLrVST7nVZs4Ixu.dtrVOWPOgn84N1sRVginqnwgmKPu1QhOzx86|867097|True|User
+2|jixida9244@forims.com|g|$2a$11$g5w6pqRf.1u2vOYK7Xz5TuwlmL2vetYUFbQ8aFv4bXouodH1MmNYa|930407|False|User
+3|librarian|jixida9244@forims.com|$2a$11$dLG4dTBoxn9WHwZkHdGBi.y54XngUS7cT2I/iJAjVqqguzIiWO0Cu|554774|True|Librarian

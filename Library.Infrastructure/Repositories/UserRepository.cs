@@ -11,7 +11,7 @@ namespace Library.Infrastructure.Repositories
 {    
     public class UserRepository : IUserRepository
     {
-        private readonly string _path = @"C:\Users\User\OneDrive\Desktop\Library.app\Library.Infrastructure\Data\UserData.txt";
+        private readonly string _path = Path.Combine(AppContext.BaseDirectory, "Data", "UserData.txt");
 
         public void SaveUser(User user)
         {

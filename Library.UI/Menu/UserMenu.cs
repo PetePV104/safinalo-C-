@@ -21,6 +21,7 @@ namespace Library.UI.Menu
             {
                 var choice = AnsiConsole.Prompt(new SelectionPrompt<string>()
                     .Title($"User menu - {Markup.Escape(_user.Name)}")
+                    .HighlightStyle(new Style(Color.White, Color.Red))
                     .AddChoices("List books", "Borrow book", "Return book", "Change profile", "Back"));
 
                 switch (choice)
